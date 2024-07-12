@@ -6,27 +6,27 @@ import cors from 'cors'
 class Server {
   private app: Application
   
-  constructor() {
+  constructor () {
     this.app = express()
     this.middlewares()
     this.routes()
   }
   
-  middlewares() {
-    this.app.use(cors())
-    this.app.use(express.json())
-    this.app.use(express.static('public'))
+  middlewares () {
+    this.app.use( cors() )
+    this.app.use( express.json() )
+    this.app.use( express.static( 'public' ) )
   }
 
-  routes() {
-    this.app.use('/api/departments', departmentsRoutes)
+  routes () {
+    this.app.use( '/api/departments', departmentsRoutes )
   }
 
-  listen() {
-    this.app.listen(config.port, () => {
+  listen () {
+    this.app.listen( config.port, () => {
       // eslint-disable-next-line no-console
-      console.log(`Server up and running at port: ${config.port}`)
-    })
+      console.log( `Server up and running at port: ${ config.port }` )
+    } )
   }
 
 }
