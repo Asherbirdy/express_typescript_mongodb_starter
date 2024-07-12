@@ -8,11 +8,10 @@ class Server {
   
   constructor() {
     this.app = express()
-    // this.dbConnection();
     this.middlewares()
     this.routes()
   }
-
+  
   middlewares() {
     this.app.use(cors())
     this.app.use(express.json())
@@ -25,6 +24,7 @@ class Server {
 
   listen() {
     this.app.listen(config.port, () => {
+      // eslint-disable-next-line no-console
       console.log(`Server up and running at port: ${config.port}`)
     })
   }

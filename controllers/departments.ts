@@ -1,5 +1,4 @@
-import { 
-  Request, Response } from 'express'
+import { Request, Response } from 'express'
 
 export const getDepartments = async (req: Request, res: Response) => {
   res.json({
