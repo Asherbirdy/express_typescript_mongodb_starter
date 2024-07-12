@@ -4,7 +4,7 @@ import departmentsRoutes from '../routes/departments'
 import cors from 'cors'
 
 class Server {
-  private    app: Application
+  private app: Application
   
   constructor() {
     this.app = express()
