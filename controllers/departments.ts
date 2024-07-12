@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 
-export const getDepartments = async (req: Request, res: Response) => {
+export const getDepartments = async ( req: Request, res: Response ) => {
 
-  res.json({
+  res.json( {
     msg: 'tesaassssssssssst'
-  })
+  } )
 
 }
