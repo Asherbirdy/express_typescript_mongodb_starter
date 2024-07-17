@@ -22,7 +22,6 @@
     "prefer-arrow-callback": ["error", { "allowNamedFunctions": false }],
     "no-confusing-arrow": ["error", { "allowParens": true }],
     "space-before-function-paren": ["error", "always"],  // 在函數前加一個空格
-    // "space-in-parens": ["error", "always"],  // 在括號內加一個空格
     "space-before-blocks": ["error", "always"],  // 在區塊前加一個空格
     "template-curly-spacing": ["error", "always"],  // 在模板字元內加一個空格
     "rest-spread-spacing": ["error", "always"],  // 在展開運算符前後加空格
