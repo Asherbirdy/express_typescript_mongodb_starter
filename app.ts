@@ -1,6 +1,5 @@
 import express, { Application } from 'express'
 import config from './config'
-import departmentsRoutes from './routes/departments'
 import DevRouter from './routes/DevRoutes'
 import cors from 'cors'
 
@@ -20,7 +19,6 @@ class Server {
   }
 
   routes () {
-    this.app.use('/api/departments', departmentsRoutes)
     this.app.use('/api/v1/dev', DevRouter)
   }
 
