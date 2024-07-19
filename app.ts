@@ -19,6 +19,7 @@ class Server {
   }
 
   routes () {
+    // ** v1
     this.app.use('/api/v1/dev', DevRouter)
   }
 
