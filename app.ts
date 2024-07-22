@@ -1,9 +1,10 @@
+import 'express-async-errors'
 import express, { Application } from 'express'
 import config from './config'
 import DevRouter from './routes/DevRoutes'
 import cors from 'cors'
-
 import morgan from 'morgan'
+import { rateLimit } from 'express-rate-limit'
 class Server {
   private app: Application
 
@@ -17,14 +18,24 @@ class Server {
     this.app.use(cors())
     this.app.use(express.json())
     this.app.use(express.static('public'))
+
     if (config.environment === 'DEV') {
       this.app.use(morgan('tiny'))
     }
+
+    this.app.use(
+      rateLimit({
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+        standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+        legacyHeaders: false,
+      }))
   }
 
   routes () {
     // ** v1
     this.app.use('/api/v1/dev', DevRouter)
+
   }
 
   listen () {
@@ -33,7 +44,6 @@ class Server {
       console.log(`Server up and running at port: ${ config.port }`)
     })
   }
-
 }
 
 export default Server
