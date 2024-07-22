@@ -20,14 +20,16 @@ class Server {
     this.app.use(express.static('public'))
 
     if (config.environment === 'DEV') {
-      this.app.use(morgan('tiny'))
+      this.app.use(
+        morgan('tiny')
+      )
     }
 
     this.app.use(
       rateLimit({
-        windowMs: 15 * 60 * 1000, // 15 minutes
-        limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
-        standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+        windowMs: 15 * 60 * 1000,
+        limit: 100,
+        standardHeaders: 'draft-7',
         legacyHeaders: false,
       }))
   }
