@@ -3,6 +3,7 @@ import config from './config'
 import DevRouter from './routes/DevRoutes'
 import cors from 'cors'
 
+import morgan from 'morgan'
 class Server {
   private app: Application
 
@@ -16,6 +17,9 @@ class Server {
     this.app.use(cors())
     this.app.use(express.json())
     this.app.use(express.static('public'))
+    if (config.environment === 'DEV') {
+      this.app.use(morgan('tiny'))
+    }
   }
 
   routes () {
