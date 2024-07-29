@@ -8,6 +8,7 @@ import morgan from 'morgan'
 import { rateLimit } from 'express-rate-limit'
 import { connectDB } from './db'
 import { errorHandlerMiddleware } from './middleware'
+import cookieParser from 'cookie-parser'
 class Server {
   private app: Application
 
@@ -20,6 +21,7 @@ class Server {
   middlewares () {
     this.app.use(cors())
     this.app.use(express.json())
+    this.app.use(cookieParser(config.jwt_secret))
     this.app.use(express.static('public'))
 
     if (config.environment === 'DEV') {
@@ -49,10 +51,9 @@ class Server {
   }
 
   listen () {
-    this.app.listen(config.port, () => {
-
+    this.app.listen(config.port, async () => {
       if(config.mongodb_url) {
-        connectDB(config.mongodb_url)
+        await connectDB(config.mongodb_url)
       }
       // eslint-disable-next-line no-console
       console.log(`Server up and running at port: ${ config.port }`)

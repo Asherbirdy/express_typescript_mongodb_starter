@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import config from '../config'
 
 // 創造 JWT
-const createJWT = ({ payload }) => {
+export const createJWT = ({ payload }: any) => {
   if (!config.jwt_secret) {
     throw new Error('JWT secret is not defined in the config')
   }
@@ -13,7 +13,7 @@ const createJWT = ({ payload }) => {
 }
 
 // 認證 JWT
-const isTokenValid = (token) => {
+export const isTokenValid = (token: any) => {
   if (!config.jwt_secret) {
     throw new Error('JWT secret is not defined in the config')
   }
@@ -21,7 +21,7 @@ const isTokenValid = (token) => {
 }
 
 // 將使用者資料 存在 cookie // user是tokenUser
-const attachCookieToResponse = ({ res, user, refreshToken }) => {
+export const attachCookieToResponse = ({ res, user, refreshToken }: any) => {
   const accessTokenJWT = createJWT({ payload: { user } })
   const refreshTokenJWT = createJWT({ payload: { user, refreshToken } })
   const oneDay = 1000 * 60 * 60 * 24
@@ -41,4 +41,3 @@ const attachCookieToResponse = ({ res, user, refreshToken }) => {
   })
 }
 
-module.exports = { createJWT, isTokenValid, attachCookieToResponse }

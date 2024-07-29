@@ -1,4 +1,4 @@
-export const createTokenUser = (user) => {
+export const createTokenUser = (user: any) => {
   return {
     name: user.name,
     userId: user._id,

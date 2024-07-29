@@ -1,5 +1,5 @@
 
-export const checkPersmission = (requestUser, resourceUserId) => {
+export const checkPersmission = (requestUser : any, resourceUserId: any) => {
   //   console.log(requestUser);
   //   console.log(resourceUserId);
   //   console.log(typeof resourceUserId);
