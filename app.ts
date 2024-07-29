@@ -11,6 +11,7 @@ import { errorHandlerMiddleware } from './middleware'
 import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
 import mongoSanitize from 'express-mongo-sanitize'
+import hpp from 'hpp'
 
 class Server {
   private app: Application
@@ -53,6 +54,7 @@ class Server {
     this.app.use(errorHandlerMiddleware)
     this.app.use(helmet())
     this.app.use(mongoSanitize())
+    this.app.use(hpp())
   }
 
   listen () {
