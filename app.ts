@@ -6,6 +6,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 import { rateLimit } from 'express-rate-limit'
 import { connectDB } from './db'
+import { errorHandlerMiddleware } from './middleware'
 class Server {
   private app: Application
 
@@ -33,6 +34,8 @@ class Server {
         standardHeaders: 'draft-7',
         legacyHeaders: false,
       }))
+
+    this.app.use(errorHandlerMiddleware)
   }
 
   routes () {
@@ -43,7 +46,7 @@ class Server {
 
   listen () {
     this.app.listen(config.port, () => {
-      
+
       if(config.mongodb_url) {
         connectDB(config.mongodb_url)
       }
