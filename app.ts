@@ -36,14 +36,16 @@ class Server {
         legacyHeaders: false,
       }))
 
-    this.app.use(errorHandlerMiddleware)
   }
 
   routes () {
     // ** v1
     this.app.use('/api/v1/dev', DevRouter)
     this.app.use('/api/v1/auth', AuthRoutes)
+  }
 
+  handleError () {
+    this.app.use(errorHandlerMiddleware)
   }
 
   listen () {
