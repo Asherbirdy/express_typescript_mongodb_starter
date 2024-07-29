@@ -7,7 +7,8 @@ interface IUser extends Document {
   email: string;
   password: string;
   role: 'admin' | 'user';
-  comparePassword(): Promise<boolean>;
+  // eslint-disable-next-line no-unused-vars
+  comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 const UserSchema: Schema<IUser> = new mongoose.Schema({
