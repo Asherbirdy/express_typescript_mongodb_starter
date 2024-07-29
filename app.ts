@@ -5,6 +5,7 @@ import DevRouter from './routes/DevRoutes'
 import cors from 'cors'
 import morgan from 'morgan'
 import { rateLimit } from 'express-rate-limit'
+import { connectDB } from './db'
 class Server {
   private app: Application
 
@@ -42,6 +43,10 @@ class Server {
 
   listen () {
     this.app.listen(config.port, () => {
+      
+      if(config.mongodb_url) {
+        connectDB(config.mongodb_url)
+      }
       // eslint-disable-next-line no-console
       console.log(`Server up and running at port: ${ config.port }`)
     })
