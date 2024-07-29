@@ -4,6 +4,7 @@ import { StatusCode } from '../enums'
 export const AuthController = {
   // ** 
   register: (req: Request, res: Response) => {
+    const { name, email, password } = req.body
     res.status(StatusCode.CREATED).json({ msg: 'register' })
   },
 
