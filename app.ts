@@ -2,6 +2,7 @@ import 'express-async-errors'
 import express, { Application } from 'express'
 import config from './config'
 import DevRouter from './routes/DevRoutes'
+import AuthRoutes from './routes/AuthRoutes'
 import cors from 'cors'
 import morgan from 'morgan'
 import { rateLimit } from 'express-rate-limit'
@@ -41,6 +42,7 @@ class Server {
   routes () {
     // ** v1
     this.app.use('/api/v1/dev', DevRouter)
+    this.app.use('/api/v1/auth', AuthRoutes)
 
   }
 
