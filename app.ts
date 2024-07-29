@@ -26,7 +26,7 @@ class Server {
         morgan('tiny')
       )
     }
-
+    this.app.set('trust proxy', 1) 
     this.app.use(
       rateLimit({
         windowMs: 15 * 60 * 1000,
