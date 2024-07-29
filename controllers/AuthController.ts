@@ -8,7 +8,6 @@ export const AuthController = {
   // ** 
   register: async (req: Request, res: Response) => {
     const { name, email, password } = req.body
-    console.log('test')
     const emailAlreadyExist = await User.findOne({ email })
     if (emailAlreadyExist) {
       // throw new CustomError.BadRequestError(`${ email } 已經被使用！`)
