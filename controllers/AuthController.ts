@@ -12,6 +12,7 @@ export const AuthController = {
     if (emailAlreadyExist) {
       // throw new CustomError.BadRequestError(`${ email } 已經被使用！`)
       res.status(StatusCode.BAD_REQUEST).json({ msg: `${ email } 已經被使用！` })
+      return
     }
 
     const isFirstAccount = (await User.countDocuments({})) === 0

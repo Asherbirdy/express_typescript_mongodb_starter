@@ -9,6 +9,8 @@ import { rateLimit } from 'express-rate-limit'
 import { connectDB } from './db'
 import { errorHandlerMiddleware } from './middleware'
 import cookieParser from 'cookie-parser'
+import helmet from 'helmet'
+
 class Server {
   private app: Application
 
@@ -48,10 +50,12 @@ class Server {
 
   handleError () {
     this.app.use(errorHandlerMiddleware)
+    this.app.use(helmet())
   }
 
   listen () {
     this.app.listen(config.port, async () => {
+      
       if(config.mongodb_url) {
         await connectDB(config.mongodb_url)
       }
