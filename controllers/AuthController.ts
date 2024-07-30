@@ -5,6 +5,7 @@ import User from '../models/User'
 import Token from '../models/Token'
 import { createTokenUser, attachCookieToResponse } from '../utils'
 import crypto from 'crypto'
+import { Req } from '../types'
 
 export const AuthController = {
   // ** 
@@ -79,7 +80,12 @@ export const AuthController = {
   },
 
   // ** 
-  logout: async (req: Request, res: Response) => {
+  logout: async (req: Req, res: Response) => {
+
+    if (!req.user) {
+      return res.status(StatusCode.UNAUTHORIZED).json({ msg: 'User not authenticated' })
+    }
+    
     await Token.findOneAndDelete({ user: req.user.userId })
 
     res.cookie('accessToken', 'logout', {

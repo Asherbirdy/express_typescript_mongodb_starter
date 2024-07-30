@@ -3,8 +3,16 @@
 import jwt from 'jsonwebtoken'
 import config from '../config'
 
+interface CustomRequest extends Request {
+  user?: {
+    userId: string
+    role: string
+  }
+}
+
 // 創造 JWT
 export const createJWT = ({ payload }: any) => {
+  console.log(payload)
   if (!config.jwt_secret) {
     throw new Error('JWT secret is not defined in the config')
   }
