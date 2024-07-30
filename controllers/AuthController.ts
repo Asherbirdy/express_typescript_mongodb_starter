@@ -1,4 +1,3 @@
-
 import { Request, Response } from 'express'
 import { StatusCode } from '../enums'
 import User from '../models/User'
@@ -21,7 +20,7 @@ export const AuthController = {
     const role = isFirstAccount ? 'admin' : 'user'
     const user = await User.create({ name, email, password, role })
   
-    const tokenUser = createTokenUser(user)
+    const tokenUser = createTokenUser(user as any)
     
     attachCookieToResponse({ res, user: tokenUser })
     res.status(StatusCode.CREATED).json({ user: tokenUser })
@@ -37,7 +36,6 @@ export const AuthController = {
     const user = await User.findOne({ email })
 
     if (!user) {
-      // throw new CustomError.UnauthenticatedError('錯誤帳號密碼')
       res.status(StatusCode.BAD_REQUEST).json({ msg: '錯誤帳號密碼' })
       return
     }
@@ -45,20 +43,16 @@ export const AuthController = {
     const isPasswordCorrect = await user.comparePassword(password)
 
     if (!isPasswordCorrect) {
-      // throw new CustomError.UnauthenticatedError('錯誤帳號密碼')
       res.status(StatusCode.BAD_REQUEST).json({ msg: '錯誤帳號密碼' })
       return
     }
 
-    const tokenUser = createTokenUser(user)
-    // create refresh token
+    const tokenUser = createTokenUser(user as any)
     let refreshToken = ''
-    // check for existing token
     const existingToken = await Token.findOne({ user: user._id })
     if (existingToken) {
       const { isValid } = existingToken
       if (!isValid) {
-        // throw new CustomError.UnauthenticatedError('Invalid Credentials')
         res.status(StatusCode.BAD_REQUEST).json({ msg: 'Invalid Credentials' })
         return
       }
@@ -81,7 +75,6 @@ export const AuthController = {
 
   // ** 
   logout: async (req: Req, res: Response) => {
-
     if (!req.user) {
       return res.status(StatusCode.UNAUTHORIZED).json({ msg: 'User not authenticated' })
     }
@@ -100,5 +93,4 @@ export const AuthController = {
 
     res.status(StatusCode.OK).json({ msg: 'user logged out!' })
   },
-
 }
