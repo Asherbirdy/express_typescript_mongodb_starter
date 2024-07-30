@@ -5,6 +5,7 @@ import User from '../models/User'
 import Token from '../models/Token'
 import { createTokenUser, attachCookieToResponse } from '../utils'
 import crypto from 'crypto'
+
 export const AuthController = {
   // ** 
   register: async (req: Request, res: Response) => {
@@ -78,8 +79,20 @@ export const AuthController = {
   },
 
   // ** 
-  logout: (req: Request, res: Response) => {
-    res.status(StatusCode.CREATED).json({ msg: 'logout' })
+  logout: async (req: Request, res: Response) => {
+    await Token.findOneAndDelete({ user: req.user.userId })
+
+    res.cookie('accessToken', 'logout', {
+      httpOnly: true,
+      expires: new Date(Date.now() + 1000),
+    })
+
+    res.cookie('refreshToken', 'logout', {
+      httpOnly: true,
+      expires: new Date(Date.now() + 1000),
+    })
+
+    res.status(StatusCode.OK).json({ msg: 'user logged out!' })
   },
 
 }
