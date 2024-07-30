@@ -2,16 +2,6 @@
 // https://jwt.io/introduction
 import jwt from 'jsonwebtoken'
 import config from '../config'
-import { ObjectId } from 'mongoose'
-
-interface Payload {
-  user: {
-    name: string
-    userId: ObjectId
-    role: string
-    refreshToken?: string
-  }
-}
 
 // 創造 JWT
 export const createJWT = ({ payload }: { payload: any }) => {

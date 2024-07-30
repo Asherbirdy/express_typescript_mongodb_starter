@@ -1,3 +1,3 @@
 export * from './commons/ApiTypes'
 
-export * from './models/User'
+export * from './models/IUser'
