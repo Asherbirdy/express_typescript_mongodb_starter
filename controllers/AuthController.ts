@@ -7,7 +7,7 @@ import crypto from 'crypto'
 import { Req } from '../types'
 
 export const AuthController = {
-  // ** 
+  // ** register
   register: async (req: Request, res: Response) => {
     const { name, email, password } = req.body
     const emailAlreadyExist = await User.findOne({ email })
@@ -26,7 +26,7 @@ export const AuthController = {
     res.status(StatusCode.CREATED).json({ user: tokenUser })
   },
 
-  // ** 
+  // ** login
   login: async (req: Request, res: Response) => {
     const { email, password } = req.body
     if (!email || !password) {
@@ -73,7 +73,7 @@ export const AuthController = {
     res.status(StatusCode.OK).json({ user: tokenUser })
   },
 
-  // ** 
+  // ** logout
   logout: async (req: Req, res: Response) => {
     if (!req.user) {
       return res.status(StatusCode.UNAUTHORIZED).json({ msg: 'User not authenticated' })
