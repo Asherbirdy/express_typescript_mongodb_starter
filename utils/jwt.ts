@@ -1,10 +1,21 @@
 
 // https://jwt.io/introduction
 import jwt from 'jsonwebtoken'
+import { ObjectId } from 'mongoose'
 import config from '../config'
 
+interface jwtPayload {
+  user: {
+    name: string
+    userId: ObjectId
+    role: string
+
+  }
+  refreshToken?: string
+}
+
 // 創造 JWT
-export const createJWT = ({ payload }: { payload: any }) => {
+export const createJWT = ({ payload }: { payload: jwtPayload }) => {
   if (!config.jwt_secret) {
     throw new Error('JWT secret is not defined in the config')
   }
