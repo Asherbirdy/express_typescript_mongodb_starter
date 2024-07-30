@@ -1,15 +1,7 @@
-import mongoose, { Schema, Document } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import validator from 'validator'
 import bcrypt from 'bcryptjs'
-
-interface IUser extends Document {
-  name: string;
-  email: string;
-  password: string;
-  role: 'admin' | 'user';
-  // eslint-disable-next-line no-unused-vars
-  comparePassword(candidatePassword: string): Promise<boolean>;
-}
+import { IUser } from '../types'
 
 const UserSchema: Schema<IUser> = new mongoose.Schema({
   name: {
