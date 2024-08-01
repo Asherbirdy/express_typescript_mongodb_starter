@@ -1,9 +1,13 @@
 import { Router } from 'express'
 import { UserController } from '../controllers'
-import { authenticateUser } from '../middleware'
-
+import { authenticateUser, authorizePermission } from '../middleware'
+import { Role } from '../enums'
 const router = Router()
 
-router.get('/showMe', authenticateUser, UserController.showCurrentUser)
+router.get(
+  '/showMe',
+  authenticateUser, authorizePermission(Role.user),
+  UserController.showCurrentUser
+)
 
 export default router

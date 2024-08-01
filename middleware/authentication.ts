@@ -2,7 +2,8 @@ import { isTokenValid, attachCookieToResponse } from '../utils'
 import { StatusCode } from '../enums'
 import Token from '../models/Token'
 import { Request, Response, NextFunction } from 'express'
-
+import { Req } from '../types'
+import { Role } from '../enums'
 interface UserPayload {
   user: {
     name: string;
@@ -52,17 +53,13 @@ export const authenticateUser = async (req: CustomRequest, res: Response, next: 
   }
 }
 
-// export const authorizePermission = (... role) => {
-//   return (req: CustomRequest, res: Request, next: NextFunction) => {
-//     if (!role.includes(req.user.role)) {
-//       // throw new CustomError.UnauthenticatedError(
-//       //   'Unauthorized to access this route'
-//       // )
-
-//       res.status(StatusCode.UNAUTHORIZED).json({msg: 'Authentication Invalid'})
-//       return
-//     }
-//     next()
-//   }
-// }
+export const authorizePermission = (... roles: Role[]) => {
+  return (req: Req, res: Response, next: NextFunction) => {
+    if (!req.user || !roles.includes(req.user.role as Role)) {
+      res.status(StatusCode.UNAUTHORIZED).json({ msg: 'Authentication Invalid' })
+      return
+    }
+    next()
+  }
+}
 
