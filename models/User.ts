@@ -1,14 +1,7 @@
-import mongoose, { Schema, Document } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import validator from 'validator'
 import bcrypt from 'bcryptjs'
-
-interface IUser extends Document {
-  name: string;
-  email: string;
-  password: string;
-  role: 'admin' | 'user';
-  comparePassword(): Promise<boolean>;
-}
+import { IUser } from '../types'
 
 const UserSchema: Schema<IUser> = new mongoose.Schema({
   name: {
@@ -39,8 +32,8 @@ const UserSchema: Schema<IUser> = new mongoose.Schema({
 })
 
 UserSchema.pre<IUser>('save', async function (next) {
-  console.log(this.modifiedPaths())
-  console.log(this.isModified('name'))
+  // console.log(this.modifiedPaths())
+  // console.log(this.isModified('name'))
   // 如果 save 不是 password (不要加密)！
   if (!this.isModified('password')) return next()
   const salt = await bcrypt.genSalt(10)
