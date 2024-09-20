@@ -1,0 +1,1 @@
+cp .env.sample .env.dev && cp .env.sample .env.prod
