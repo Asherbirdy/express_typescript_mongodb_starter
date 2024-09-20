@@ -24,6 +24,7 @@ class Server {
     this.app = express()
     this.middlewares()
     this.routes()
+    this.handleErrorAndSafety()
   }
 
   middlewares () {
